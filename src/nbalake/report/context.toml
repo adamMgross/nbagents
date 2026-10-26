@@ -1,0 +1,290 @@
+[basketball-reference]
+kind = "source"
+title = "Basketball-Reference"
+text = """
+Basketball-Reference.com, run by Sports Reference, is the standard public
+record of basketball history: season totals and advanced stats for every
+player and team back to the 1946-47 BAA, the ABA included. The lake reads
+its season tables through a Kaggle mirror kept by Sumitro Datta. Advanced
+stats before 1977-78 rest on estimated turnovers, because the league did
+not count them yet.
+"""
+links = [
+  { title = "Basketball-Reference", url = "https://www.basketball-reference.com" },
+  { title = "The Kaggle mirror", url = "https://www.kaggle.com/datasets/sumitrodatta/nba-aba-baa-stats" },
+]
+
+[nba-stats]
+kind = "source"
+title = "NBA Stats and ESPN, via sportsdataverse"
+text = """
+The NBA's own stats site and ESPN publish box scores, play-by-play, shots,
+lineups, and tracking for every game. sportsdataverse, an open-source
+sports data project, mirrors them as files refreshed nightly. Play-by-play,
+every event of every game, starts in 1996-97.
+"""
+links = [
+  { title = "NBA Stats", url = "https://www.nba.com/stats" },
+  { title = "sportsdataverse data", url = "https://github.com/sportsdataverse/sportsdataverse-data" },
+]
+
+[shufinskiy]
+kind = "source"
+title = "shufinskiy play-by-play archive"
+text = """
+An independent analyst's archive of play-by-play and shot data from several
+NBA feeds and pbpstats.com, one file per season from 1996-97. It fills gaps
+and cross-checks the main play-by-play.
+"""
+links = [{ title = "shufinskiy/nba_data", url = "https://github.com/shufinskiy/nba_data" }]
+
+[site-data]
+kind = "source"
+title = "site_Data closest defender splits"
+text = """
+An independent analyst's GitHub scrape of NBA Stats, of which the lake keeps
+shooting split by how far away the closest defender was: under 2 feet, 2 to
+4, 4 to 6, and 6 or more. It covers every player and team from 2013-14, the
+first season of arena tracking cameras.
+"""
+links = [
+  { title = "gabriel1200/site_Data", url = "https://github.com/gabriel1200/site_Data" },
+  { title = "NBA Stats shots by closest defender", url = "https://www.nba.com/stats/players/shots-closest-defender" },
+]
+
+[fivethirtyeight]
+kind = "source"
+title = "FiveThirtyEight"
+text = """
+The data journalism site published the inputs and outputs of its NBA
+forecasts: Elo ratings for every game since 1946-47 and its RAPTOR player
+ratings. ABC News shut the site down in 2025, so the data is frozen.
+"""
+links = [{ title = "fivethirtyeight/data", url = "https://github.com/fivethirtyeight/data" }]
+
+[last-two-minute]
+kind = "source"
+title = "Last Two Minute reports"
+text = """
+Since March 2015 the NBA has graded every call and notable non-call in the
+last two minutes of close games, on video, and published the result. A
+community repository scrapes the reports into tables.
+"""
+links = [{ title = "atlhawksfanatic/L2M", url = "https://github.com/atlhawksfanatic/L2M" }]
+
+[betting-odds]
+kind = "source"
+title = "Betting lines"
+text = """
+Closing point spreads, totals, and moneylines from 2006-07, built by
+independent analysts from public sportsbook archives and published on
+Kaggle. A spread is the market's forecast of the margin.
+"""
+links = [
+  { title = "The Kaggle dataset", url = "https://www.kaggle.com/datasets/cviaxmiwnptr/nba-betting-data-october-2007-to-june-2024" },
+]
+
+[us-population]
+kind = "source"
+title = "US population"
+text = """
+The Census Bureau's estimate of the US population, one number a year,
+published through the Federal Reserve Bank of St. Louis.
+"""
+links = [{ title = "FRED series POP", url = "https://fred.stlouisfed.org/series/POP" }]
+
+[player-birthplaces]
+kind = "source"
+title = "Player birthplaces"
+text = """
+Country of birth for every NBA and ABA player since 1974, from Wikidata,
+the open knowledge base behind Wikipedia.
+"""
+links = [{ title = "Wikidata", url = "https://www.wikidata.org" }]
+
+[bpm]
+kind = "stat"
+title = "Box Plus/Minus (BPM)"
+text = """
+An estimate, from the box score, of how many points per 100 possessions a
+player added above a league average player in his own season. Zero is
+average and +10 is an MVP season. Because it is measured against that
+season's league, pace and scoring levels cancel out. A replacement level
+player, the kind a team can sign any time, sits near -2.
+"""
+links = [
+  { title = "Box Plus/Minus, Basketball-Reference", url = "https://www.basketball-reference.com/about/bpm2.html" },
+]
+
+[win-shares]
+kind = "stat"
+title = "Win Shares"
+text = """
+A split of each team's wins among its players, from the box score: credit
+for the points a player produced and the points he helped prevent. A team's
+players' win shares add up to about its win total.
+"""
+links = [
+  { title = "Win Shares, Basketball-Reference", url = "https://www.basketball-reference.com/about/ws.html" },
+]
+
+[net-rating]
+kind = "stat"
+title = "Net rating"
+text = """
+Points scored minus points allowed per 100 possessions. Counting per
+possession instead of per game removes pace, so a fast team and a slow
+team compare directly.
+"""
+links = []
+
+[pace]
+kind = "stat"
+title = "Pace and possessions"
+text = """
+A possession lasts until the other team gets the ball. Pace is possessions
+per 48 minutes. Teams in the 1960s averaged over 120 and teams in the early
+2000s near 90, which is why per game totals mislead across eras.
+"""
+links = []
+
+[elo]
+kind = "stat"
+title = "Elo rating"
+text = """
+A team strength rating that moves after every game by how surprising the
+result was, so beating a strong team on the road gains the most. 1500 is
+average. Two ratings give a win probability for a game between them.
+"""
+links = []
+
+[era_wins]
+kind = "metric"
+title = "Era wins"
+text = """
+Wins above replacement for every player season since 1974, built from BPM:
+how far above replacement a player was, times his share of team minutes,
+times the wins a point of margin was worth that season. Neutral wins then
+translate a season into the 2025-26 league by three adjustments: league
+strength, measured from players who played back to back seasons (after
+Berry, Reese, and Larkey, 1999) and the size of the talent pool, free
+throws at today's foul rates, and today's wins per point.
+"""
+links = []
+
+[career_postseason]
+kind = "metric"
+title = "Career postseason achievement"
+text = """
+Playoff success since 1984, counted as playoff wins above what the
+season's weakest playoff team would have won against the same opponents,
+weighted by round. Each team's credit is split among its players, and from
+1994 the split reflects how each one played that postseason.
+"""
+links = []
+
+[career_postseason_basic]
+kind = "metric"
+title = "Career postseason achievement, basic"
+text = """
+The same team playoff credit back to 1958, with rounds counted back from
+the Finals, split among players by their regular season win shares so
+every era is measured the same way.
+"""
+links = []
+
+[quality_wins]
+kind = "metric"
+title = "Quality wins"
+text = """
+Regular-season wins weighted by how hard each one was. A win counts the
+chance an average team would have lost the same game, against the same
+opponent at the same venue, scaled so a season's average win counts one, and
+a loss counts nothing. Each win is split among the players who played it by
+their win shares per minute, so a player is never marked down for a game he
+missed.
+"""
+links = []
+
+[on-off]
+kind = "stat"
+title = "On/off splits"
+text = """
+How a team or a player does with one player on the floor against with him
+on the bench, counted from the five players play-by-play lists for every
+event. Comparing the same games removes the schedule, but the bench
+minutes come against different opponents and next to different teammates,
+so one season of on/off is noisy and is best read over several.
+"""
+links = [{ title = "pbpstats on/off and lineups", url = "https://www.pbpstats.com" }]
+
+[rapm]
+kind = "stat"
+title = "Regularized adjusted plus-minus (RAPM)"
+text = """
+A regression over every stretch of play that asks how much the scoring
+margin moved with each player on the floor, holding fixed the other nine
+players. It sees everything that changes the score, defense and spacing
+included, and shrinks every player toward average so a small sample cannot
+make anyone look extreme. It is noisy within one season and steadier over
+several, and it struggles to separate teammates who always play together.
+"""
+links = [{ title = "hoopR, the source of these ratings", url = "https://github.com/sportsdataverse/hoopR" }]
+
+[raptor]
+kind = "stat"
+title = "RAPTOR"
+text = """
+FiveThirtyEight's player rating, in points per 100 possessions above an
+average player, built from the box score and from on/off results. Its
+historical version reaches back to 1976-77 with box-score data alone.
+RAPTOR wins turn the rating into wins above a replacement player, in the
+regular season and the playoffs apart.
+"""
+links = [{ title = "RAPTOR data, FiveThirtyEight", url = "https://github.com/fivethirtyeight/data/tree/master/nba-raptor" }]
+
+[true-shooting]
+kind = "stat"
+title = "True shooting percentage"
+text = """
+Points per scoring attempt, with a three worth more than a two and free
+throws counted at the share of a possession they use: points divided by
+twice the sum of field goal attempts and 0.44 times free throw attempts.
+League averages rose from 41 percent in 1949-50 to 58 percent in 2025-26,
+so a player's true shooting reads best against his own league's.
+"""
+links = [{ title = "Basketball-Reference glossary", url = "https://www.basketball-reference.com/about/glossary.html" }]
+
+[clutch]
+kind = "stat"
+title = "Clutch shots"
+text = """
+The NBA's standard clutch window: the last five minutes of the fourth
+quarter or overtime with the score within five points. A few hundred clutch
+shots a season spread across a whole roster, so a player's clutch
+percentage is noisy unless he took a great many of them.
+"""
+links = []
+
+[plus-minus]
+kind = "stat"
+title = "Plus-minus"
+text = """
+The team's points minus the opponent's points while a player was on the
+floor. It sees everything that moved the score, defense and spacing
+included, but it also credits a player for his teammates and opponents, so
+it is noisy over a few games and reads best over a season or more.
+"""
+links = [{ title = "Basketball-Reference glossary", url = "https://www.basketball-reference.com/about/glossary.html" }]
+
+[usage]
+kind = "stat"
+title = "Usage rate"
+text = """
+The share of his team's possessions a player ends while he is on the floor,
+with a shot, free throws, or a turnover. About 20 percent is an even share
+of five players, and stars run near 30. Efficiency usually falls as usage
+rises, because the extra shots are harder, so compare shooting at similar
+usage.
+"""
+links = [{ title = "Basketball-Reference glossary", url = "https://www.basketball-reference.com/about/glossary.html" }]

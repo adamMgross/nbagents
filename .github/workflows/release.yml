@@ -1,0 +1,56 @@
+name: release
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - runner: macos-14
+            platform: macos-arm64
+          - runner: ubuntu-22.04
+            platform: linux-x86_64
+          - runner: ubuntu-22.04-arm
+            platform: linux-arm64
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen
+      - run: uv run pytest
+      - run: uv run --frozen --group build python packaging/build.py
+      - run: uv run pytest -n 0 tests/test_bundle.py
+        env:
+          NBALAKE_APP: dist/nbalake
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nbalake-${{ matrix.platform }}
+          path: dist/nbalake-${{ matrix.platform }}.tar.gz
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - run: |
+          gh release create "$GITHUB_REF_NAME" dist/*.tar.gz -R "$GITHUB_REPOSITORY" \
+            --title "$GITHUB_REF_NAME" \
+            --notes "Install or update from a terminal on macOS (Apple silicon) or Linux (x86_64 or arm64), then ask Claude Code to set up the NBA lake:
+
+          \`\`\`
+          curl -fsSL https://raw.githubusercontent.com/adamMgross/nbagents/main/install.sh | sh
+          \`\`\`
+
+          Use the installer rather than downloading an archive below. On macOS a browser download is blocked by Gatekeeper, and the installer avoids it."
+        env:
+          GH_TOKEN: ${{ github.token }}

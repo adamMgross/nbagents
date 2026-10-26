@@ -37,6 +37,7 @@ WRITE_COMMANDS = ("capture", "stage", "curate", "vacuum", "refresh", "setup")
 SCHEDULES = "sdv.nba_stats_schedules"
 PBP = "sdv.espn_nba_pbp"
 TEAM_BOX = "sdv.nba_stats_team_boxscores"
+ANSI = re.compile(r"\x1b\[[0-9;]*m")
 TIMESTAMP = re.compile(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}")
 
 GAMES = [
@@ -544,8 +545,10 @@ def test_command_set_matches_the_documented_commands() -> None:
 
 @pytest.mark.parametrize("command", [(), *((c,) for c in COMMANDS)], ids=["app", *COMMANDS])
 def test_help_exits_0(command: tuple[str, ...]) -> None:
+    """GitHub Actions makes rich color the help, which splits option names with escape codes."""
     result = runner.invoke(app, [*command, "--help"])
+    text = ANSI.sub("", result.stdout)
 
     assert result.exit_code == 0, result.output
-    assert "Usage:" in result.stdout
-    assert "--root" in result.stdout or command in {(), *((c,) for c in LAKELESS_COMMANDS)}
+    assert "Usage:" in text
+    assert "--root" in text or command in {(), *((c,) for c in LAKELESS_COMMANDS)}

@@ -509,7 +509,7 @@ def install_skills(
     runtime = Runtime.current()
     target = dest or skills.default_dest(runtime)
     skills.install(target, runtime, runtime.files / "docs")
-    console.print(f"skills written to {target}")
+    typer.echo(f"skills written to {target}")
 
 
 def main() -> None:

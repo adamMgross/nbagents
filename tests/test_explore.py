@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import resource
+import sys
 from dataclasses import replace
 from pathlib import Path
 
@@ -865,11 +866,17 @@ def test_a_scratch_macro_is_listed_under_yours_and_called_qualified(lake_root: R
     assert "## yours" not in ok(nba(lake_root, "macros"))
 
 
+NO_DATA_LIMIT = pytest.mark.skipif(
+    sys.platform == "darwin", reason="macOS does not enforce RLIMIT_DATA, so nba py has no cap"
+)
+
+
 @pytest.fixture
 def tiny_python(monkeypatch: pytest.MonkeyPatch, tiny_caps: None) -> None:
     monkeypatch.setattr(script, "PYTHON_MEMORY", "128MB")
 
 
+@NO_DATA_LIMIT
 def test_py_materializing_a_frame_past_the_python_cap_exits_1_with_the_cap_line(
     lake_root: Root, tiny_python: None
 ) -> None:
@@ -881,6 +888,7 @@ def test_py_materializing_a_frame_past_the_python_cap_exits_1_with_the_cap_line(
     assert result.stderr == f"error: {session.OVER_CAP}\n"
 
 
+@NO_DATA_LIMIT
 def test_py_python_memory_past_the_cap_exits_1_and_the_limit_is_lifted_after(
     lake_root: Root, tiny_python: None
 ) -> None:

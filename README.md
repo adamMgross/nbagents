@@ -6,6 +6,8 @@ and betting lines, kept in one consistent model. You ask questions in plain
 English through Claude Code, and it answers from the data or writes a
 shareable report.
 
+[![Watch the NBA Lake trailer](https://img.youtube.com/vi/171T8mto0zc/maxresdefault.jpg)](https://youtu.be/171T8mto0zc)
+
 ## Install
 
 You need macOS on Apple silicon (M1 or later) or Linux on x86_64 or arm64

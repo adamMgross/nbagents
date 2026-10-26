@@ -40,7 +40,7 @@ def install_extensions(directory: Path) -> None:
 def build() -> Path:
     extensions = WORK / EXTENSIONS
     install_extensions(extensions)
-    data = [(extensions, EXTENSIONS)] + [(REPO / "docs" / name, f"docs/{name}") for name in DOCS]
+    data = [(REPO / "docs" / name, f"docs/{name}") for name in DOCS]
     PyInstaller.__main__.run(
         [
             str(REPO / "packaging" / "launcher.py"),
@@ -58,6 +58,8 @@ def build() -> Path:
         ]
     )
     app = DIST / "nbalake"
+    # Copied after PyInstaller so it never re-signs them, which breaks DuckDB's signature footer.
+    shutil.copytree(extensions, app / "_internal" / EXTENSIONS)
     (app / "nba").symlink_to("nbalake")
     archive = DIST / f"nbalake-{platform_name()}.tar.gz"
     with tarfile.open(archive, "w:gz") as tar:

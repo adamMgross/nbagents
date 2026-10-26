@@ -153,6 +153,11 @@ timer is installed (decision 27).
   another holds it, including the nightly run from 07:30 or from boot.
   Check `systemctl --user status nbalake-refresh` before a long manual
   curate.
+- On macOS `nba py` has no Python memory cap. `script.py` caps it with
+  `RLIMIT_DATA`, which macOS does not enforce, so a script can grow until
+  the machine swaps, and the two cap tests in `tests/test_explore.py` skip
+  there. DuckDB's own 4 GB cap still holds. A fix needs a cap macOS honors,
+  such as a watchdog on the process's resident memory.
 - `pkill -f` with a pattern in your own command line kills your shell. Use
   `pgrep -f "[p]attern"`.
 - A view that casts `season` (`season::INTEGER`) or computes a window not
